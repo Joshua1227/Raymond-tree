@@ -47,19 +47,11 @@ class Prog extends Program
 	  
 	  inChannels = in().getSize();
 	  	for (i=0; i<inChannels; i++) {
-	  		int res = Arrays.binarySearch(neighbors, i); 
-	  		boolean test = res > 0 ? true : false;
-	  		if(test) {
-	  			msgIn.addChannel(in(i));
-	  		}
+	  		msgIn.addChannel(in(i));
 	  }
 	  outChannels = out().getSize();
 	  	for (i=0; i<outChannels; i++) {
-	  		int res = Arrays.binarySearch(neighbors, i); 
-	  		boolean test = res > 0 ? true : false;
-	  		if(test) {
-	  			msgOut.addChannel(out(i));
-	  		}
+	  		msgOut.addChannel(out(i));
 	  		
 	  }
 	  while(true) {
