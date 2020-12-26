@@ -39,10 +39,14 @@ public class Main extends Application
   // --------------------------------------------------------------------------
   public void construct()
   {
-    Node node0 = node(new Prog(0,0), "0", 200, 50);
-    Node node1 = node(new Prog(1,0), "1", 150, 200);
-    Node node2 = node(new Prog(2,0), "2", 250, 200);
-    Node node3 = node(new Prog(3,2), "3", 300, 350);
+	int arr1[] = {1,2};
+    Node node0 = node(new Prog(0,0,arr1), "0", 200, 50);
+    int arr2[] = {0};
+    Node node1 = node(new Prog(1,0,arr2), "1", 150, 200);
+    int arr3[] = {0,3};
+    Node node2 = node(new Prog(2,0,arr3), "2", 250, 200);
+    int arr4[] = {2};
+    Node node3 = node(new Prog(3,2,arr4), "3", 300, 350);
     link(node0, node1);
     link(node1, node0);
     link(node0, node2);

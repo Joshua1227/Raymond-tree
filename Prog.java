@@ -1,8 +1,10 @@
 import daj.*;
+import java.util.Arrays;
 
 class Prog extends Program
 {
   private int id, holder;
+  private int[] neighbors;
   public boolean sent_req, have_token, completed_crit;		//sent req is to make sure that every node sends a req once. (we assume that every node needs to enter the critical section once)
   private FIFO request_q;
   private InChannelSet msgIn;
@@ -11,7 +13,7 @@ class Prog extends Program
   // --------------------------------------------------------------------------
   // called for	initialization of program
   // --------------------------------------------------------------------------
-  public Prog(int ID, int Holder)
+  public Prog(int ID, int Holder, int[] neighbors)
   { 
     this.id = ID;
     this.holder = Holder;//only for root
@@ -23,6 +25,7 @@ class Prog extends Program
     	sent_req = false;
     	completed_crit = false;
     }
+    this.neighbors = neighbors;
     request_q = new FIFO();
     msgIn = new InChannelSet();
     msgOut = new OutChannelSet();
@@ -44,11 +47,20 @@ class Prog extends Program
 	  
 	  inChannels = in().getSize();
 	  	for (i=0; i<inChannels; i++) {
-	  		msgIn.addChannel(in(i));
+	  		int res = Arrays.binarySearch(neighbors, i); 
+	  		boolean test = res > 0 ? true : false;
+	  		if(test) {
+	  			msgIn.addChannel(in(i));
+	  		}
 	  }
 	  outChannels = out().getSize();
 	  	for (i=0; i<outChannels; i++) {
-	  		msgOut.addChannel(out(i));
+	  		int res = Arrays.binarySearch(neighbors, i); 
+	  		boolean test = res > 0 ? true : false;
+	  		if(test) {
+	  			msgOut.addChannel(out(i));
+	  		}
+	  		
 	  }
 	  while(true) {
 		  i = request_q.getNextReceiver();
